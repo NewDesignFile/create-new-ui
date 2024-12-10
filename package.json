@@ -8,7 +8,7 @@
     "bin/"
   ],
   "bin": {
-    "create-new-ui": "./bin/new.mjs"
+    "create-new-ui": "./dist/new.mjs"
   },
   "main": "./dist/new.mjs",
   "scripts": {
