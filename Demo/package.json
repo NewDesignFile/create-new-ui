@@ -1,0 +1,20 @@
+{
+  "name": "Demo",
+  "version": "0.0.1",
+  "description": "New UI app.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vite": "latest",
+    "sass-embedded": "latest",
+    "@new-ui/colors": "latest",
+    "@new-ui/effects": "latest",
+    "@new-ui/reset": "latest",
+    "@new-ui/spacings": "latest",
+    "@new-ui/typography": "latest"
+  }
+}
