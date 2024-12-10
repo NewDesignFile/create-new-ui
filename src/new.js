@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import fs from 'fs-extra';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { program } from 'commander';
+import pkg from 'fs-extra';
+const { ensureDirSync, writeFileSync, writeJsonSync } = pkg;
 
 // Available dependencies
 const DEPENDENCIES = {
@@ -15,7 +15,7 @@ const DEPENDENCIES = {
   typography: '@new-ui/typography@latest'
 };
 
-async function createNewUI() {
+export async function createNewUI() {
   console.log(chalk.blue('Create New UI'));
 
   // Prompt for project name
@@ -43,17 +43,17 @@ async function createNewUI() {
 
   // Create project directory
   const projectPath = path.resolve(process.cwd(), projectName);
-  fs.ensureDirSync(projectPath);
+  ensureDirSync(projectPath);
   process.chdir(projectPath);
 
   // Create src directory structure
   const srcPath = path.join(projectPath, 'src');
-  fs.ensureDirSync(srcPath);
-  fs.ensureDirSync(path.join(srcPath, 'scss'));
-  fs.ensureDirSync(path.join(srcPath, 'css'));
+  ensureDirSync(srcPath);
+  ensureDirSync(path.join(srcPath, 'scss'));
+  ensureDirSync(path.join(srcPath, 'css'));
 
   // Create index.html
-  fs.writeFileSync(path.join(projectPath, 'index.html'), `<!DOCTYPE html>
+  writeFileSync(path.join(projectPath, 'index.html'), `<!DOCTYPE html>
 <html lang="en" data-new-ui-theme="dark">
 <head>
     <meta charset="UTF-8">
@@ -70,8 +70,8 @@ async function createNewUI() {
 </html>`);
 
   // Create main.js
-  fs.writeFileSync(path.join(srcPath, 'main.js'), `// Main entry point for the application
-console.log('New UI application initialized');
+  writeFileSync(path.join(srcPath, 'main.js'), `
+console.log('New UI app initialized');
 `);
 
   // Create package.json
@@ -88,24 +88,15 @@ console.log('New UI application initialized');
     devDependencies: {
       'vite': 'latest',
       'sass-embedded': 'latest',
-      '@new-ui/colors': 'latest',
-      '@new-ui/effects': 'latest',
-      '@new-ui/reset': 'latest',
-      '@new-ui/spacings': 'latest',
-      '@new-ui/typography': 'latest'
+      ...Object.fromEntries(selectedDependencies.map(dep => [`@new-ui/${dep}`, 'latest'])), 
     }
   };
 
-  // Add selected dependencies
-  selectedDependencies.forEach(dep => {
-    delete packageJson.dependencies[dep];
-  });
-
   // Write package.json
-  fs.writeJsonSync(path.join(projectPath, 'package.json'), packageJson, { spaces: 2 });
+  writeJsonSync(path.join(projectPath, 'package.json'), packageJson, { spaces: 2 });
 
   // Create vite.config.js
-  fs.writeFileSync(path.join(projectPath, 'vite.config.js'), `import { defineConfig } from 'vite';
+  writeFileSync(path.join(projectPath, 'vite.config.js'), `import { defineConfig } from 'vite';
   
   export default defineConfig({
     plugins: [],
@@ -120,25 +111,25 @@ console.log('New UI application initialized');
   });
   `);
 
-// Create initial SCSS files
-const mainScssPath = path.join(srcPath, 'scss', 'main.scss');
-const uniqueDependencies = [...new Set(selectedDependencies)];
+  // Create initial SCSS files
+  const mainScssPath = path.join(srcPath, 'scss', 'main.scss');
+  const uniqueDependencies = [...new Set(selectedDependencies)];
 
-const namespaces = {
-  colors: 'colors',
-  effects: 'effects',
-  reset: 'reset',
-  spacings: 'spacings',
-  typography: 'typography'
-};
+  const namespaces = {
+    colors: 'colors',
+    effects: 'effects',
+    reset: 'reset',
+    spacings: 'spacings',
+    typography: 'typography'
+  };
 
-const scssImports = uniqueDependencies.map(dep => {
-  const namespace = namespaces[dep] || dep;
-  return `@use '@new-ui/${dep}' as ${namespace};`;
-}).join('\n');
+  const scssImports = uniqueDependencies.map(dep => {
+    const namespace = namespaces[dep] || dep;
+    return `@use '@new-ui/${dep}' as ${namespace};`;
+  }).join('\n');
 
-fs.writeFileSync(mainScssPath, 
-  `${scssImports}
+  writeFileSync(mainScssPath, 
+    `${scssImports}
 
 :root {
   font-size: 16px;
@@ -154,7 +145,7 @@ body {
 `.trim());
 
   // Create README
-  fs.writeFileSync(path.join(projectPath, 'README.md'), `# ${projectName}
+  writeFileSync(path.join(projectPath, 'README.md'), `# ${projectName}
 New UI app
 
 ## Getting Started
@@ -184,9 +175,11 @@ pnpm run preview
 }
 
 // CLI Configuration
-program
-  .name('create-new-ui')
-  .description('Create a New UI app')
-  .action(createNewUI);
+if (import.meta.url === `file://${process.argv[1]}`) {
+  program
+    .name('create-new-ui')
+    .description('Create a New UI app')
+    .action(createNewUI);
 
-program.parse(process.argv);
+  program.parse(process.argv);
+}
