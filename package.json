@@ -1,10 +1,13 @@
 {
   "name": "create-new-ui",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "A semantic, BEM-based UI framework.",
   "type": "module",
   "files": [
-    "dist/new.es.js"
+    "dist/new.es.js",
+    "vite.config.js",
+    "README.md",
+    "LICENSE"   
   ],
   "main": "./dist/new.es.js",
   "bin": {
@@ -24,17 +27,17 @@
     "foundations",
     "typography",
     "responsive",
-    "type",
+    "ui",
     "type-styles",
     "modular",
-    "type",
+    "typography",
     "tokens",
-    "desktop",
-    "mobile",
+    "spaings",
+    "effects",
     "colors",
     "spacings",
-    "spacing-blocks",
-    "reset"
+    "reset",
+    "new"
   ],
   "author": "@planetabhi",
   "license": "MIT",

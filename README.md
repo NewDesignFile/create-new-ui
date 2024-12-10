@@ -1,1 +1,3 @@
-# Create New UI
+```bash
+npx create-new-ui
+```

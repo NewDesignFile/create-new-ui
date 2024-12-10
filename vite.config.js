@@ -1,4 +1,9 @@
 import { defineConfig } from 'vite';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   build: {
@@ -6,6 +11,7 @@ export default defineConfig({
       entry: 'src/new.js',
       name: 'CreateNewUI',
       fileName: (format) => `new.${format}.js`,
+      formats: ['es'],
     },
     rollupOptions: {
       external: ['fs-extra', 'inquirer', 'chalk', 'commander', 'path', 'module'],
@@ -21,6 +27,20 @@ export default defineConfig({
       },
     },
   },
+  plugins: [
+    {
+      name: 'add-shebang',
+      generateBundle(options, bundle) {
+        const files = Object.keys(bundle);
+        files.forEach(fileName => {
+          const file = bundle[fileName];
+          if (file.type === 'chunk') {
+            file.code = `#!/usr/bin/env node\n${file.code}`;
+          }
+        });
+      }
+    }
+  ],
   resolve: {
     alias: {
       'path': 'path-browserify',

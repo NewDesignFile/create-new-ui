@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import path from 'path';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
