@@ -1,10 +1,11 @@
 {
   "name": "create-new-ui",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A semantic, BEM-based UI framework.",
   "files": [
     "dist/new.es.js",
     "vite.config.js",
+    "src/new.js",
     "README.md",
     "LICENSE"   
   ],
@@ -15,8 +16,7 @@
   "type": "module",
   "scripts": {
     "dev": "node ./src/new.js",
-    "build": "vite build",
-    "prepare": "pnpm run build",
+    "build": "vite build && pnpm run postbuild",
     "start": "node ./dist/new.es.js",
     "postbuild": "chmod +x dist/new.es.js"
   },
@@ -26,14 +26,13 @@
   },
   "keywords": [
     "foundations",
-    "typography",
     "responsive",
     "ui",
     "type-styles",
     "modular",
     "typography",
     "tokens",
-    "spaings",
+    "spacings",
     "effects",
     "colors",
     "spacings",
