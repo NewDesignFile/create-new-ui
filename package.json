@@ -1,24 +1,19 @@
 {
   "name": "create-new-ui",
-  "version": "0.0.6",
-  "description": "A semantic, BEM-based UI framework.",
+  "version": "0.0.7",
+  "description": "A modern, semantic UI framework for building beautiful, accessible websites and apps.",
+  "type": "module",
+  "bin": {
+    "create-new-ui-app": "./dist/index.js"
+  },
   "files": [
-    "dist/new.es.js",
-    "vite.config.js",
-    "src/new.js",
-    "README.md",
-    "LICENSE"   
+    "dist"
   ],
   "main": "./dist/new.es.js",
-  "bin": {
-    "create-new-ui": "./dist/new.es.js"
-  },
-  "type": "module",
   "scripts": {
-    "dev": "node ./src/new.js",
-    "build": "vite build && pnpm run postbuild",
-    "start": "node ./dist/new.es.js",
-    "postbuild": "chmod +x dist/new.es.js"
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -28,10 +23,7 @@
     "foundations",
     "responsive",
     "ui",
-    "type-styles",
-    "modular",
     "typography",
-    "tokens",
     "spacings",
     "effects",
     "colors",
@@ -46,12 +38,11 @@
   },
   "homepage": "https://new-ui.com",
   "dependencies": {
-    "chalk": "^5.4.1",
-    "commander": "^13.1.0",
-    "fs-extra": "^11.3.0",
-    "inquirer": "^12.6.0"
+    "@clack/prompts": "^0.7.0",
+    "picocolors": "^1.0.0"
   },
   "devDependencies": {
-    "vite": "^6.3.5"
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.2"
   }
 }
