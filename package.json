@@ -1,7 +1,7 @@
 {
   "name": "create-new-ui",
-  "version": "0.1.0",
-  "description": "A modern, semantic UI for building beautiful, accessible websites and apps.",
+  "version": "0.1.1",
+  "description": "A modern, semantic UI for building beautiful, accessible sites and apps.",
   "type": "module",
   "bin": {
     "create-new-ui-app": "./dist/index.js"
@@ -34,7 +34,6 @@
     "ui"
   ],
   "author": "@planetabhi",
-  "license": "MIT",
   "homepage": "https://new-ui.com",
   "dependencies": {
     "@clack/prompts": "^0.10.1",
@@ -46,10 +45,10 @@
     "@new-ui/reset": "^0.0.9",
     "@new-ui/spacings": "^0.1.5",
     "@new-ui/typography": "^0.1.8",
-    "@types/node": "^22.15.17",
-    "@typescript-eslint/eslint-plugin": "^8.32.0",
-    "@typescript-eslint/parser": "^8.32.0",
-    "eslint": "^9.26.0",
+    "@types/node": "^22.15.19",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "eslint": "^9.27.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.4.0",
