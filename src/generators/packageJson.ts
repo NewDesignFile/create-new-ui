@@ -19,19 +19,19 @@ export async function generatePackageJson(
   config.dependencies.forEach((dep: string) => {
     switch (dep) {
       case 'colors':
-        dependencies['@new-ui/colors'] = '^2.0.1';
+        dependencies['@new-ui/colors'] = '^2.2.1';
         break;
       case 'effects':
-        dependencies['@new-ui/effects'] = '^0.1.5';
+        dependencies['@new-ui/effects'] = '^0.1.8';
         break;
       case 'reset':
-        dependencies['@new-ui/reset'] = '^0.0.9';
+        dependencies['@new-ui/reset'] = '^0.1.0';
         break;
       case 'spacings':
-        dependencies['@new-ui/spacings'] = '^0.1.5';
+        dependencies['@new-ui/spacings'] = '^0.1.7';
         break;
       case 'typography':
-        dependencies['@new-ui/typography'] = '^0.1.8';
+        dependencies['@new-ui/typography'] = '^0.1.10';
         break;
       default:
         dependencies[`@new-ui/${dep}`] = '^0.1.0'; // Fallback for any new packages
